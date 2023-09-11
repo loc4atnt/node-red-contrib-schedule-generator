@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-schedule-generator",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Generate timeline from schedule",
   "main": "schedule_gen/gen-timeline.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "git+https://github.com/loc4atnt/node-red-contrib-schedule-generator.git"
   },
   "keywords": [
-    "Nodred",
+    "node-red",
     "Schedule",
     "Timeline",
     "Playlist"
