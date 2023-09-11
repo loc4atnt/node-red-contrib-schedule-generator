@@ -1,0 +1,69 @@
+<script type="text/javascript">
+    RED.nodes.registerType('gen-timeline', {
+        category: 'parser',
+        color: '#217346',
+        defaults: {
+            name: { value: "" },
+            schedule: { value: "" },
+            start: { value: "" },
+            end: { value: "" },
+            range: { value: "" },
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-calendar",
+        label: function () {
+            return this.name || "gen timeline";
+        },
+        oneditprepare: () => {
+            $("#node-input-schedule").typedInput({
+                type:"json",
+                types:["json"]
+            });
+
+            $(".node-input-num").typedInput({
+                type:"num",
+                types:["num"]
+            })
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="gen-timeline">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-schedule"><i class="fa fa-calendar"></i> Schedule</label>
+        <input type="text" id="node-input-schedule" placeholder="Schedule">
+    </div>
+    <div class="form-row">
+        <label for="node-input-start"><i class="fa fa-arrow-right"></i> Start</label>
+        <input type="text" id="node-input-start" class="node-input-num" placeholder="Start">
+    </div>
+    <div class="form-row">
+        <label for="node-input-end"><i class="fa fa-arrow-left"></i> End</label>
+        <input type="text" id="node-input-end" class="node-input-num" placeholder="End">
+    </div>
+    <div class="form-row">
+        <label for="node-input-range"><i class="fa fa-arrows-h"></i> Range</label>
+        <input type="text" id="node-input-range" class="node-input-num" placeholder="Range">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="gen-timeline">
+    <h3>Generate timeline from schedule</h3>
+    <h3>Input description:</h3>
+    <p><code>msg.payload</code> should contains a JSON array of schedule (Could be replaced by 'Schedule' input)</p>
+    <p><code>msg.start</code> represents starting time in millis (Could be replaced by 'Start' input) (Default is current time)</p>
+    <p><code>msg.end</code> represents ending time in millis (Could be replaced by 'End' input)</p>
+    <p><code>msg.range</code> represents timeline range in millis if <code>msg.end</code> is not set (Could be replaced by 'Range' input) (Default is 1 day)</p>
+    <h3>Output description - If got success:</h3>
+    <p><code>msg.payload.playlists</code> represents tasks map by id</p>
+    <p><code>msg.payload.schedules</code> represents timeline</p>
+    <h3>Output description - If got error:</h3>
+    <p><code>msg.payload.error == true</code></p>
+    <p><code>msg.payload.errorId</code> error identity</p>
+    <p><code>msg.payload.errorMsg</code> error message</p>
+</script>

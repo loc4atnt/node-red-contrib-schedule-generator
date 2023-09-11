@@ -1,0 +1,33 @@
+{
+  "name": "node-red-contrib-schedule-generator",
+  "version": "1.0.0",
+  "description": "Generate timeline from schedule",
+  "main": "schedule_gen/gen-timeline.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loc4atnt/node-red-contrib-schedule-generator.git"
+  },
+  "keywords": [
+    "Nodred",
+    "Schedule",
+    "Timeline",
+    "Playlist"
+  ],
+  "author": "loc4atnt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/loc4atnt/node-red-contrib-schedule-generator/issues"
+  },
+  "homepage": "https://github.com/loc4atnt/node-red-contrib-schedule-generator#readme",
+  "node-red": {
+    "nodes": {
+      "gen-timeline": "schedule_gen/gen-timeline.js"
+    }
+  },
+  "dependencies": {
+    "moment": "^2.29.4"
+  }
+}
