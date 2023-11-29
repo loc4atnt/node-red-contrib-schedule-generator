@@ -1,7 +1,7 @@
 const moment = require('moment');
 
 const ITEM_DATETIME_FORMAT = 'YYYY-MM-DD HH:mm:ss.SSS';
-const SCHEDULE_RESULT_DATETIME_FORMAT = "YYYY-MM-DDTHH:mm:ssZ";
+const SCHEDULE_RESULT_DATETIME_FORMAT = "YYYY-MM-DDTHH:mm:ss.SSSZ";
 
 function splitTimeString(str) {
   let splt = str.split('.');
@@ -21,11 +21,11 @@ async function generateDetailSchedule(scheduleItems, from, to) {
           let isOverDay = false;
           let detailStartMoment = moment(checkingMoment);
           let startTimeSpliting = splitTimeString(item.start_time);
-          detailStartMoment.set({'hour': startTimeSpliting[0], 'minute': startTimeSpliting[1], 'second': startTimeSpliting[2], 'millisecond': 0});
+          detailStartMoment.set({'hour': startTimeSpliting[0], 'minute': startTimeSpliting[1], 'second': startTimeSpliting[2], 'millisecond': startTimeSpliting[3]});
           //
           let detailEndMoment = moment(checkingMoment);
           let endTimeSpliting = splitTimeString(item.end_time);
-          detailEndMoment.set({'hour': endTimeSpliting[0], 'minute': endTimeSpliting[1], 'second': endTimeSpliting[2], 'millisecond': 0});
+          detailEndMoment.set({'hour': endTimeSpliting[0], 'minute': endTimeSpliting[1], 'second': endTimeSpliting[2], 'millisecond': endTimeSpliting[3]});
           if (detailEndMoment.isBefore(detailStartMoment)) {
             detailEndMoment.add(1, 'd');
             isOverDay = true;
@@ -84,9 +84,9 @@ async function generateDetailSchedule(scheduleItems, from, to) {
   }, []);
   
   return fRawDetail.map(d => ({
-    "start_timestamp": d.detailStartMoment.unix(),
+    "start_timestamp": d.detailStartMoment.valueOf(),
     "start": d.detailStartMoment.format(SCHEDULE_RESULT_DATETIME_FORMAT),
-    "end_timestamp": d.detailEndMoment.unix(),
+    "end_timestamp": d.detailEndMoment.valueOf(),
     "end": d.detailEndMoment.format(SCHEDULE_RESULT_DATETIME_FORMAT),
     "is_now": d.is_now,
     "loop_once": d.loop_once,
